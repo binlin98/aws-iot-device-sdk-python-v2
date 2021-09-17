@@ -34,6 +34,31 @@ to Python by the `awscrt` package ([PyPI](https://pypi.org/project/awscrt/)) ([G
 ### Minimum Requirements
 *   Python 3.6+
 
+### Install Git and curl
+```
+sudo apt install git
+git --version
+sudo apt install curl
+```
+### Install Python
+```
+sudo apt install python3.9
+python3.9 --version
+sudo apt install python3-pip
+```
+### Set Python3 as Default (optional)
+```
+sudo su
+update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+python --version
+```
+### Install Java 8 for use with Greengrass Components (optional)
+```
+sudo apt update
+sudo apt install openjdk-8-jdk
+sudo ln /etc/alternatives/java /usr/bin/java8
+```
+
 ### Install from PyPI
 ```
 python3 -m pip install awsiotsdk
