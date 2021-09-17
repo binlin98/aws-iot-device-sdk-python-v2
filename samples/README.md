@@ -6,6 +6,20 @@
 * [basic discovery](#basic-discovery)
 * [IPC with AWS IoT Greengrass to publish to AWS IoT Core](#ipc-with-aws-iot-greengrass-to-publish-to-aws-iot-core)
 
+## Create or Select a Thing
+
+Login as IAM User under AWS IoT Console:
+```
+* Add or select a Thing
+* Create certificate
+* Activate Device Certificate
+* Download Device Certificate and Key files
+* Download Root CA certificates (default: RSA 2048 bit key: Amazon Root CA 1)
+* Store the download certificates and key files to the root directory of the device SDK
+* Add execution permissions to Device Certificate and Key files
+  chmod +x <file>
+```
+
 ## Pubsub
 
 This sample uses the
@@ -29,6 +43,24 @@ Your Thing's
 must provide privileges for this sample to connect, subscribe, publish,
 and receive.
 
+Login as IAM User under AWS IoT Console:
+```
+* Create a policy under Advance mode
+* Copy the following sample policy statements
+* Repalce all <region> with your AWS account region
+* Repalce all <account> with your AWS account number
+* Create the new policy
+* Select the Thing to test
+* Select the actived certificate corresponding to those downloaded
+* Attached the newly created sample test policy to the certificate
+```
+
+statements
+Run the sample like this:
+``` sh
+python3 pubsub.py --endpoint <endpoint> --root-ca <file> --cert <file> --key <file>
+```
+
 <details>
 <summary>(see sample policy)</summary>
 <pre>
@@ -44,7 +76,17 @@ and receive.
       "Resource": [
         "arn:aws:iot:<b>region</b>:<b>account</b>:topic/test/topic"
       ]
-    },
+    },Login as IAM User under AWS IoT Console:
+```
+* Create a policy under Advance mode
+* Copy the following sample policy statements
+* Repalce all <region> with your AWS account region
+* Repalce all <account> with your AWS account number
+* Create the new policy
+* Select the Thing to test
+* Select the actived certificate corresponding to those downloaded
+* Attached the newly created sample test policy to the certificate
+```
     {
       "Effect": "Allow",
       "Action": [
@@ -100,6 +142,17 @@ Your Thing's
 must provide privileges for this sample to connect, subscribe, publish,
 and receive.
 
+Login as IAM User under AWS IoT Console:
+```
+* Create a policy under Advance mode
+* Copy the following sample policy statements
+* Repalce all <region> with your AWS account region
+* Repalce all <account> with your AWS account number
+* Create the new policy
+* Select the Thing to test
+* Select the actived certificate corresponding to those downloaded
+* Attached the newly created sample test policy to the certificate
+```
 <details>
 <summary>(see sample policy)</summary>
 <pre>
@@ -185,6 +238,19 @@ Your Thing's
 [Policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html)
 must provide privileges for this sample to connect, subscribe, publish,
 and receive.
+
+Login as IAM User under AWS IoT Console:
+```
+* Create a policy under Advance mode
+* Copy the following sample policy statements
+* Repalce all <region> with your AWS account region
+* Repalce all <account> with your AWS account number
+* Create the new policy
+* Select the Thing to test
+* Select the actived certificate corresponding to those downloaded
+* Attached the newly created sample test policy to the certificate
+```
+
 <details>
 <summary>(see sample policy)</summary>
 <pre>
@@ -262,6 +328,18 @@ Your Thing's
 [Policy](https://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html)
 must provide privileges for this sample to connect, subscribe, publish,
 and receive.
+
+Login as IAM User under AWS IoT Console:
+```
+* Create a policy under Advance mode
+* Copy the following sample policy statements
+* Repalce all <region> with your AWS account region
+* Repalce all <account> with your AWS account number
+* Create the new policy
+* Select the Thing to test
+* Select the actived certificate corresponding to those downloaded
+* Attached the newly created sample test policy to the certificate
+```
 
 <details>
 <summary>(see sample policy)</summary>
