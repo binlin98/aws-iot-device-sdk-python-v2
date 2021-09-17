@@ -55,12 +55,6 @@ Login as IAM User under AWS IoT Console:
 * Attached the newly created sample test policy to the certificate
 ```
 
-statements
-Run the sample like this:
-``` sh
-python3 pubsub.py --endpoint <endpoint> --root-ca <file> --cert <file> --key <file>
-```
-
 <details>
 <summary>(see sample policy)</summary>
 <pre>
