@@ -7,5 +7,6 @@
     "proxy-port": 8080,
     "root-ca": "root-CA.crt",
     "cert": "ThingOne_certificate.pem.crt",
-    "key": "ThingOne_private.pem.key"
+    "key": "ThingOne_private.pem.key",
+    "client-id": "test_mac_dev"
 }
