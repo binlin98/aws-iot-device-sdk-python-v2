@@ -9,9 +9,10 @@ from concurrent.futures import Future
 import sys
 import threading
 import traceback
-from uuid import uuid4
 import json
 import os
+import uuid
+from uuid import uuid4
 
 # - Overview -
 # This sample uses the AWS IoT Device Shadow Service to keep a property in
@@ -30,11 +31,11 @@ import os
 # which are sent when a property's "desired" value differs from its "reported"
 # value. When the sample learns of a new desired value, that value is changed
 # on the device and an update is sent to the server with the new "reported"
-# value.
+# value.from uuid import uuid4
 
 # Before running this test, Copy test_connection_input.json file to command path
-# and update with new values, including endpoint, port, use-websocket, signing-region,
-# proxy-host, proxy-port, root-ca, cert and key
+# and update with new values, including endpoint, port, use_websocket, signing_region,
+# proxy_host, proxy_port, root-ca, cert and key
 
 # Read test_connection_input.json file stored in command path 'os.getcwd()'
 connection_input_file_path = os.path.join(os.getcwd(), "test_connection_input.json")
@@ -43,8 +44,10 @@ with open(connection_input_file_path, "r") as jsonfile:
     print("Read connection inputs successful")
     jsonfile.close()
 
+device_mac_address = str (hex(uuid.getnode())[2:])
+
 parser = argparse.ArgumentParser(description="Device Shadow sample keeps a property in sync across client and server")
-parser.add_argument('--client-id', default="test-" + str(uuid4()), help="Client ID for MQTT connection.")
+parser.add_argument('--client-id', default=connection_args['product_name'] + "-" + device_mac_address + "-" + connection_args['environment'], help="Client ID for MQTT connection.")
 parser.add_argument('--thing-name', required=True, help="The name assigned to your IoT Thing")
 parser.add_argument('--shadow-property', default="color", help="Name of property in shadow to keep in sync")
 parser.add_argument('--verbosity', choices=[x.name for x in io.LogLevel], default=io.LogLevel.NoLogs.name,
@@ -282,15 +285,15 @@ if __name__ == '__main__':
     client_bootstrap = io.ClientBootstrap(event_loop_group, host_resolver)
 
     proxy_options = None
-    if (connection_args['proxy-host']):
-        proxy_options = http.HttpProxyOptions(host_name=connection_args['proxy-host'], port=connection_args['proxy-port'])
+    if (connection_args['proxy_host']):
+        proxy_options = http.HttpProxyOptions(host_name=connection_args['proxy_host'], port=connection_args['proxy_port'])
 
-    if connection_args['use-websocket'] == True:
+    if connection_args['use_websocket'] == True:
         credentials_provider = auth.AwsCredentialsProvider.new_default_chain(client_bootstrap)
         mqtt_connection = mqtt_connection_builder.websockets_with_default_aws_signing(
             endpoint=connection_args['endpoint'],
             client_bootstrap=client_bootstrap,
-            region=connection_args['signing-region'],
+            region=connection_args['signing_region'],
             credentials_provider=credentials_provider,
             http_proxy_options=proxy_options,
             ca_filepath=connection_args['root-ca'],

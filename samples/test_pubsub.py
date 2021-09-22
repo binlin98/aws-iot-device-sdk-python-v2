@@ -7,9 +7,10 @@ from awsiot import mqtt_connection_builder
 import sys
 import threading
 import time
-from uuid import uuid4
 import json
 import os
+import uuid
+from uuid import uuid4
 
 # This sample uses the Message Broker for AWS IoT to send and receive messages
 # through an MQTT connection. On startup, the device connects to the server,
@@ -18,8 +19,8 @@ import os
 # since it is subscribed to that same topic.
 
 # Before running this test, Copy test_connection_input.json file to command path
-# and update with new values, including endpoint, port, use-websocket, signing-region,
-# proxy-host, proxy-port, root-ca, cert and key
+# and update with new values, including endpoint, port, use_websocket, signing_region,
+# proxy_host, proxy_port, root-ca, cert and key
 
 # Read test_connection_input.json file stored in command path 'os.getcwd()'
 connection_input_file_path = os.path.join(os.getcwd(), "test_connection_input.json")
@@ -28,8 +29,10 @@ with open(connection_input_file_path, "r") as jsonfile:
     print("Read connection inputs successful")
     jsonfile.close()
 
+device_mac_address = str (hex(uuid.getnode())[2:])
+
 parser = argparse.ArgumentParser(description="Send and receive messages through and MQTT connection.")
-parser.add_argument('--client-id', default="test-" + str(uuid4()), help="Client ID for MQTT connection.")
+parser.add_argument('--client-id', default=connection_args['product_name'] + "-" + device_mac_address + "-" + connection_args['environment'], help="Client ID for MQTT connection.")
 parser.add_argument('--topic', default="test/topic", help="Topic to subscribe to, and publish messages to.")
 parser.add_argument('--message', default="Hello World!", help="Message to publish. " +
                                                               "Specify empty string to publish nothing.")
@@ -88,15 +91,15 @@ if __name__ == '__main__':
     client_bootstrap = io.ClientBootstrap(event_loop_group, host_resolver)
 
     proxy_options = None
-    if (connection_args['proxy-host']):
-        proxy_options = http.HttpProxyOptions(host_name=connection_args['proxy-host'], port=connection_args['proxy-port'])
+    if (connection_args['proxy_host']):
+        proxy_options = http.HttpProxyOptions(host_name=connection_args['proxy_host'], port=connection_args['proxy_port'])
 
-    if connection_args['use-websocket'] == True:
+    if connection_args['use_websocket'] == True:
         credentials_provider = auth.AwsCredentialsProvider.new_default_chain(client_bootstrap)
         mqtt_connection = mqtt_connection_builder.websockets_with_default_aws_signing(
             endpoint=connection_args['endpoint'],
             client_bootstrap=client_bootstrap,
-            region=connection_args['signing-region'],
+            region=connection_args['signing_region'],
             credentials_provider=credentials_provider,
             http_proxy_options=proxy_options,
             ca_filepath=connection_args['root-ca'],

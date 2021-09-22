@@ -1,12 +1,13 @@
 {
     "endpoint": "abcd123456wxyz-ats.iot.us-east-2.amazonaws.com",
     "port": 8883,
-    "use-websocket": false,
-    "signing-region": "us-east-2",
-    "proxy-host": null,
-    "proxy-port": 8080,
+    "use_websocket": false,
+    "signing_region": "us-east-2",
+    "proxy_host": null,
+    "proxy_port": 8080,
     "root-ca": "root-CA.crt",
     "cert": "ThingOne_certificate.pem.crt",
     "key": "ThingOne_private.pem.key",
-    "client-id": "test_mac_dev"
+    "product_name": "test",
+    "environment": "dev"
 }
