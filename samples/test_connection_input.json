@@ -8,6 +8,8 @@
     "root-ca": "root-CA.crt",
     "cert": "ThingOne_certificate.pem.crt",
     "key": "ThingOne_private.pem.key",
+    "provision_cert": "provision.cert.pem",
+    "provision_key": "provision.private.key",
     "product_name": "test",
     "environment": "dev"
 }

@@ -1,0 +1,91 @@
+{
+    "DeviceConfiguration": {
+        "FallbackUrl": "https://www.example.com/test-site",
+        "LocationUrl": {
+            "Fn::FindInMap": [
+                "LocationTable",
+                {
+                    "Ref": "DeviceLocation"
+                },
+                "LocationUrl"
+            ]
+        }
+    },
+    "Mappings": {
+        "LocationTable": {
+            "Seattle": {
+                "LocationUrl": "https://example.aws"
+            }
+        }
+    },
+    "Parameters": {
+        "AWS::IoT::Certificate::Id": {
+            "Type": "String"
+        },
+        "DeviceLocation": {
+            "Type": "String"
+        },
+        "SerialNumber": {
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "certificate": {
+            "OverrideSettings": {
+                "Status": "REPLACE"
+            },
+            "Properties": {
+                "CertificateId": {
+                    "Ref": "AWS::IoT::Certificate::Id"
+                },
+                "Status": "Active"
+            },
+            "Type": "AWS::IoT::Certificate"
+        },
+        "policy": {
+            "Properties": {
+                "PolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "iot:Connect",
+                                "iot:Subscribe",
+                                "iot:Publish",
+                                "iot:Receive"
+                            ],
+                            "Effect": "Allow",
+                            "Resource": "*"
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                }
+            },
+            "Type": "AWS::IoT::Policy"
+        },
+        "thing": {
+            "OverrideSettings": {
+                "AttributePayload": "MERGE",
+                "ThingGroups": "DO_NOTHING",
+                "ThingTypeName": "REPLACE"
+            },
+            "Properties": {
+                "AttributePayload": {
+                    "serialNumber": "serialNumber",
+                    "version": "v1"
+                },
+                "ThingName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "ThingPrefix_",
+                            {
+                                "Ref": "SerialNumber"
+                            }
+                        ]
+                    ]
+                }
+            },
+            "Type": "AWS::IoT::Thing"
+        }
+    }
+}
